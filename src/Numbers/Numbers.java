@@ -1,30 +1,46 @@
 package Numbers;
 
-import java.util.TreeSet;
+import java.util.Arrays;
+import java.util.LinkedList;
+
 
 public class Numbers {
-static TreeSet<Long> getNumbers(long n)
+static Long[] getNumbers(long n)
 {
-    TreeSet<Long> res=new TreeSet<>();
-    for (long i=0;i<n;i++) {
+    LinkedList<Long> res=new LinkedList<>();
+    int l=Long.toString(n).length();
+    long[][] memo=new long[10][l];
+    //запоминаем все возможные для чисел <=n значения степеней цифр
+    for (int i=1;i<10;i++)
+    {
+        for(int j=0;j<memo[i].length;j++)
+        {
+            memo[i][j]=(long)Math.pow(i,j+1);
+        }
+    }
+   //System.out.println(Arrays.deepToString(memo));
+    for (long i=1;i<=n;i++) {
         char[] temp = Long.toString(i).toCharArray();
         int length=temp.length;
         int[] digits =new int[length];
         for (int j=0;j<length;j++)
             digits[j]=Character.getNumericValue(temp[j]);//получаем массив цифр, составляющих число n
         long sum=0;
-        for (int k=0;k<length;k++)
+            for (int k=0;k<digits.length;k++)
         {
-            sum+=Math.pow(digits[k],length);
+            int m=digits[k];
+            sum+=memo[m][length-1];
         }
         if(sum==i) res.add(i);
     }
-    return res;
+    Long [] r=new Long[res.size()];
+            res.toArray(r);
+    return r;
 }
     public static void main(String[] args) {
         long startTime=System.currentTimeMillis();
-        TreeSet<Long> result=getNumbers(100000000);
-        System.out.println(result);
+        Long[] result=getNumbers(100000000);
+        System.out.println(Arrays.toString(result));
         System.out.println("");
         System.out.println("memory: "+
                         (Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/(1024*1024)+" mb");
