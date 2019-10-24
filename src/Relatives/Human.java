@@ -2,11 +2,11 @@ package Relatives;
 
 public class Human {
 
-        String name;
-        int age;
-        boolean sex;
-        Human father;
-        Human mother;
+        private String name;
+        private int age;
+        private boolean sex;
+        private Human father;
+        private Human mother;
         Human (String name, boolean sex, int age)
         {
             this.name=name;
