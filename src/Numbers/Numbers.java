@@ -45,6 +45,7 @@ static Long[] getNumbers(long n)
         System.out.println("memory: "+
                         (Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/(1024*1024)+" mb");
         long timeSpent=System.currentTimeMillis()-startTime;
+
         System.out.println(timeSpent+" ms");
     }
 }
